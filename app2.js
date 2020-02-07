@@ -8,9 +8,19 @@ var input; 							//MediaStreamAudioSourceNode we'll be recording
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioContext //audio context to help us record
 
+var functions = [
+	startGuitarRecording,
+	stopGuitarRecording,
+	startVocalRecording,
+	pauseRecording
+]
+var cnt = 0;
+
 // ボタンの要素を取得
 var controls = document.getElementById("controls");
-controls.addEventListener("click", startGuitarRecording, false);
+controls.addEventListener("click", function() {
+	functions[cnt++ % functions.length]();
+});
 
 /////////////////////////////////////////////// startGuitarRecordingを定義 ///////////////////////////////////////////////
 function startGuitarRecording() {
@@ -73,10 +83,6 @@ function startGuitarRecording() {
 	}).catch(function(err) { //ここがないとエラーが出る
 	});
 }
-
-// 2回目ボタンを押したら、STOP → Recording Vocalになるようにしたい
-var controls = document.getElementById("controls");
-controls.addEventListener("click", startGuitarRecording, false);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // /////////////////////////////////////////////// stopGuitarRecordingを定義 ///////////////////////////////////////////////
@@ -211,3 +217,10 @@ function stopGuitarRecording() {
 // //
 // // 	}
 // // }
+function startVocalRecording() {
+	console.log('startVocalRecording')
+}
+
+function pauseRecording() {
+	console.log('pauseRecording')
+}
